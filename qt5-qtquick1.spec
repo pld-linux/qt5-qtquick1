@@ -17,6 +17,8 @@ BuildRequires:	qt5-qtscript-devel = %{version}
 BuildRequires:	qt5-qttools-devel = %{version}
 BuildRequires:	qt5-qtxmlpatterns-devel = %{version}
 BuildRequires:	rpmbuild(macros) >= 1.654
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_noautoreqdep	libGL.so.1 libGLU.so.1
@@ -39,6 +41,9 @@ Qt5 Quick1 - development files.
 %package doc
 Summary:	The Qt5 Quick1 - docs
 Group:		Documentation
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description doc
 Qt5 Quick1 - documentation.
@@ -46,6 +51,9 @@ Qt5 Quick1 - documentation.
 %package examples
 Summary:	Qt5 Quick1 examples
 Group:		X11/Development/Libraries
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description examples
 Qt5 Quick1 - examples.
