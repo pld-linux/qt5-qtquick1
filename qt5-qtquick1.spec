@@ -1,8 +1,17 @@
 # TODO:
 # - cleanup
+#
+# Conditional build:
+%bcond_without	qch	# documentation in QCH format
 
 %define		orgname		qtquick1
-Summary:	The Qt5 Quick1
+%define		qtbase_ver		%{version}
+%define		qtdeclarative_ver	%{version}
+%define		qtscript_ver		%{version}
+%define		qttools_ver		%{version}
+%define		qtxmlpatterns_ver	%{version}
+Summary:	The Qt5 Quick1 (Qt5Declarative) library
+Summary(pl.UTF-8):	Biblioteka Qt5 Quick1 (Qt5Declarative)
 Name:		qt5-%{orgname}
 Version:	5.2.0
 Release:	0.1
@@ -11,52 +20,105 @@ Group:		X11/Libraries
 Source0:	http://download.qt-project.org/official_releases/qt/5.2/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
 # Source0-md5:	4535ff78b5a9a18ffba702298a48e22e
 URL:		http://qt-project.org/
-BuildRequires:	qt5-qtbase-devel = %{version}
-BuildRequires:	qt5-qtdeclarative-devel = %{version}
-BuildRequires:	qt5-qtscript-devel = %{version}
-BuildRequires:	qt5-qttools-devel = %{version}
-BuildRequires:	qt5-qtxmlpatterns-devel = %{version}
+%if %{with qch}
+BuildRequires:	qt5-assistant >= %{qttools_ver}
+%endif
+BuildRequires:	qt5-qtbase-devel >= %{qtbase_ver}
+BuildRequires:	qt5-qtdeclarative-devel >= %{qtdeclarative_ver}
+BuildRequires:	qt5-qtscript-devel >= %{qtscript_ver}
+BuildRequires:	qt5-qtxmlpatterns-devel >= %{qtdeclarative_ver}
 BuildRequires:	rpmbuild(macros) >= 1.654
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_noautoreqdep	libGL.so.1 libGLU.so.1
-%define		_noautostrip	'.*_debug\\.so*'
-
 %define		specflags	-fno-strict-aliasing
-%define		_qtdir		%{_libdir}/qt5
+%define		qt5dir		%{_libdir}/qt5
 
 %description
-Qt5 Quick1 libraries.
+Qt is a cross-platform application and UI framework. Using Qt, you can
+write web-enabled applications once and deploy them across desktop,
+mobile and embedded systems without rewriting the source code.
 
-%package devel
-Summary:	The Qt5 Quick1 - development files
+This package contains Qt5 Quick1 (Qt5Declarative) library.
+
+%description -l pl.UTF-8
+Qt to wieloplatformowy szkielet aplikacji i interfejsów użytkownika.
+Przy użyciu Qt można pisać aplikacje powiązane z WWW i wdrażać je w
+systemach biurkowych, przenośnych i wbudowanych bez przepisywania kodu
+źródłowego.
+
+Ten pakiet zawiera bibliotekę Qt5 Quick1 (Qt5Declarative).
+
+%package -n Qt5Declarative
+Summary:	The Qt5 Quick1 (Qt5Declarative) library
+Summary(pl.UTF-8):	Biblioteka Qt5 Quick1 (Qt5Declarative)
+Group:		X11/Libraries
+Requires:	Qt5Core >= %{qtbase_ver}
+Obsoletes:	qt5-qtquick1
+
+%description -n Qt5Declarative
+Qt5 Quick1 (Qt5Declarative) library FIXME.
+
+%description -n Qt5Declarative -l pl.UTF-8
+Biblioteka Qt5 Quick1 (Qt5Declarative).
+
+%package -n Qt5Declarative-devel
+Summary:	Qt5 Quick1 (Qt5Declarative) library - development files
+Summary(pl.UTF-8):	Biblioteka Qt5 Quick1 (Qt5Declarative) - pliki programistyczne
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Obsoletes:	qt5-qtquick1-devel
 
-%description devel
-Qt5 Quick1 - development files.
+%description -n Qt5Declarative-devel
+Qt5 Quick1 (Qt5Declarative) library - development files.
+
+%description -n Qt5Declarative-devel -l pl.UTF-8
+Biblioteka Qt5 Quick1 (Qt5Declarative) - pliki programistyczne.
 
 %package doc
-Summary:	The Qt5 Quick1 - docs
+Summary:	Qt5 Quick1 (Qt5Declarative) documentation in HTML format
+Summary(pl.UTF-8):	Dokumentacja do biblioteki Qt5 Quick1 (Qt5Declarative) w formacie HTML
 Group:		Documentation
 %if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
 %endif
 
 %description doc
-Qt5 Quick1 - documentation.
+Qt5 Quick1 (Qt5Declarative) documentation in HTML format.
+
+%description doc -l pl.UTF-8
+Dokumentacja do biblioteki Qt5 Quick1 (Qt5Declarative) w formacie
+HTML.
+
+%package doc-qch
+Summary:	Qt5 Quick1 (Qt5Declarative) documentation in QCH format
+Summary(pl.UTF-8):	Dokumentacja do biblioteki Qt5 Quick1 (Qt5Declarative) w formacie QCH
+Group:		Documentation
+Requires:	qt5-doc-common >= %{qtbase_ver}
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
+
+%description doc-qch
+Qt5 Quick1 (Qt5Declarative) documentation in QCH format.
+
+%description doc-qch -l pl.UTF-8
+Dokumentacja do biblioteki Qt5 Quick1 (Qt5Declarative) w formacie QCH.
 
 %package examples
-Summary:	Qt5 Quick1 examples
+Summary:	Qt5 Quick1 (Qt5Declarative) examples
+Summary(pl.UTF-8):	Przykłady do biblioteki Qt5 Quick1 (Qt5Declarative)
 Group:		X11/Development/Libraries
 %if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
 %endif
 
 %description examples
-Qt5 Quick1 - examples.
+Qt5 Quick1 (Qt5Declarative) examples.
+
+%description examples -l pl.UTF-8
+Przykłady do biblioteki Qt5 Quick1 (Qt5Declarative).
 
 %prep
 %setup -q -n %{orgname}-opensource-src-%{version}
@@ -64,15 +126,20 @@ Qt5 Quick1 - examples.
 %build
 qmake-qt5
 %{__make}
-%{__make} docs
+%{__make} %{!?with_qch:html_}docs
 
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 
-%{__make} install_docs \
+%{__make} install_%{!?with_qch:html_}docs \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
+
+# useless symlinks
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libQt5*.so.5.?
+# actually drop *.la, follow policy of not packaging them when *.pc exist
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libQt5*.la
 
 # Prepare some files list
 ifecho() {
@@ -102,25 +169,24 @@ done
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post		-p /sbin/ldconfig
-%postun		-p /sbin/ldconfig
+%post	-n Qt5Declarative -p /sbin/ldconfig
+%postun	-n Qt5Declarative -p /sbin/ldconfig
 
-%files
+%files -n Qt5Declarative
 %defattr(644,root,root,755)
-%attr(755,root,root) %ghost %{_libdir}/libQt5Declarative.so.?
-%attr(755,root,root) %{_libdir}/libQt5Declarative.so.*.*
-%attr(755,root,root) %{_qtdir}/bin/*
-%attr(755,root,root) %{_qtdir}/imports
-%attr(755,root,root) %{_qtdir}/plugins
+%attr(755,root,root) %{_libdir}/libQt5Declarative.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libQt5Declarative.so.5
+%attr(755,root,root) %{qt5dir}/bin/*
+%attr(755,root,root) %{qt5dir}/imports
+%attr(755,root,root) %{qt5dir}/plugins/*
 
-%files devel
+%files -n Qt5Declarative-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libQt5Declarative.so
-%{_libdir}/libQt5Declarative.la
 %{_libdir}/libQt5Declarative.prl
-%{_libdir}/cmake/Qt5Declarative
 %{_includedir}/qt5/QtDeclarative
-%{_pkgconfigdir}/*.pc
-%{_qtdir}/mkspecs
+%{_pkgconfigdir}/Qt5Declarative.pc
+%{_libdir}/cmake/Qt5Declarative
+%{qt5dir}/mkspecs/modules/*.pri
 
 %files examples -f examples.files
