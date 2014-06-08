@@ -82,9 +82,9 @@ Quick.
 Summary:	Qt5 Quick1 (Qt5Declarative) library - development files
 Summary(pl.UTF-8):	Biblioteka Qt5 Quick1 (Qt5Declarative) - pliki programistyczne
 Group:		X11/Development/Libraries
-Requires:	%{name} = %{version}-%{release}
 Requires:	OpenGL-devel
 Requires:	Qt5Core-devel >= %{qtbase_ver}
+Requires:	Qt5Declarative = %{version}-%{release}
 Requires:	Qt5Gui-devel >= %{qtbase_ver}
 Requires:	Qt5Network-devel >= %{qtbase_ver}
 Requires:	Qt5Script-devel >= %{qtscript_ver}
@@ -117,6 +117,7 @@ Wtyczka QDeclarativeView (Quick1) dla Qt5 Designera.
 Summary:	Qt5 Quick1 (Qt5Declarative) documentation in HTML format
 Summary(pl.UTF-8):	Dokumentacja do biblioteki Qt5 Quick1 (Qt5Declarative) w formacie HTML
 Group:		Documentation
+Requires:	qt5-doc-common >= %{qtbase_ver}
 %if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
 %endif
