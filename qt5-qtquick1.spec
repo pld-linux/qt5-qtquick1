@@ -100,31 +100,33 @@ Qt5 Quick1 (Qt5Declarative) library - development files.
 %description -n Qt5Declarative-devel -l pl.UTF-8
 Biblioteka Qt5 Quick1 (Qt5Declarative) - pliki programistyczne.
 
-%package -n Qt5Declarative-webkit
+%package -n Qt5Declarative-plugin-webkit
 Summary:	WebKit plugin for Qt5 Quick1 library
 Summary(pl.UTF-8):	Wtyczka WebKit dla biblioteki Qt5 Quick1
 Group:		X11/Libraries
 Requires:	Qt5Declarative = %{version}-%{release}
 Requires:	Qt5WebKit >= %{qtwebkit_ver}
+Obsoletes:	Qt5Declarative-webkit
 
-%description -n Qt5Declarative-webkit
+%description -n Qt5Declarative-plugin-webkit
 WebKit plugin for Qt5 Quick1 library.
 
-%description -n Qt5Declarative-webkit -l pl.UTF-8
+%description -n Qt5Declarative-plugin-webkit -l pl.UTF-8
 Wtyczka WebKit dla biblioteki Qt5 Quick1.
 
-%package -n Qt5Designer-qdeclarativeview
+%package -n Qt5Designer-plugin-qdeclarativeview
 Summary:	QDeclarativeView (Quick1) plugin for Qt5 Designer
 Summary(pl.UTF-8):	Wtyczka QDeclarativeView (Quick1) dla Qt5 Designera
 Group:		X11/Libraries
 Requires:	Qt5Declarative = %{version}-%{release}
 Requires:	Qt5Designer >= %{qttools_ver}
 Requires:	Qt5Widgets >= %{qtbase_ver}
+Obsoletes:	Qt5Designer-qdeclarativeview
 
-%description -n Qt5Designer-qdeclarativeview
+%description -n Qt5Designer-plugin-qdeclarativeview
 QDeclarativeView (Quick1) plugin for Qt5 Designer.
 
-%description -n Qt5Designer-qdeclarativeview -l pl.UTF-8
+%description -n Qt5Designer-plugin-qdeclarativeview -l pl.UTF-8
 Wtyczka QDeclarativeView (Quick1) dla Qt5 Designera.
 
 %package doc
@@ -279,14 +281,14 @@ rm -rf $RPM_BUILD_ROOT
 %{qt5dir}/mkspecs/modules/qt_lib_declarative.pri
 %{qt5dir}/mkspecs/modules/qt_lib_declarative_private.pri
 
-%files -n Qt5Declarative-webkit
+%files -n Qt5Declarative-plugin-webkit
 %defattr(644,root,root,755)
 %dir %{qt5dir}/imports/QtWebKit
 %attr(755,root,root) %{qt5dir}/imports/QtWebKit/libqmlwebkitplugin.so
 %{qt5dir}/imports/QtWebKit/plugins.qmltypes
 %{qt5dir}/imports/QtWebKit/qmldir
 
-%files -n Qt5Designer-qdeclarativeview
+%files -n Qt5Designer-plugin-qdeclarativeview
 %defattr(644,root,root,755)
 %attr(755,root,root) %{qt5dir}/plugins/designer/libqdeclarativeview.so
 %{_libdir}/cmake/Qt5Designer/Qt5Designer_QDeclarativeViewPlugin.cmake
