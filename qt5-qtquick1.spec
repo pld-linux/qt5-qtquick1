@@ -7,6 +7,7 @@
 %define		qtdeclarative_ver	%{version}
 %define		qtscript_ver		%{version}
 %define		qttools_ver		%{version}
+%define		qtwebkit_ver		%{version}
 %define		qtxmlpatterns_ver	%{version}
 Summary:	The Qt5 Quick1 (Qt5Declarative) library
 Summary(pl.UTF-8):	Biblioteka Qt5 Quick1 (Qt5Declarative)
@@ -25,7 +26,7 @@ BuildRequires:	Qt5Network-devel >= %{qtbase_ver}
 BuildRequires:	Qt5OpenGL-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Script-devel >= %{qtscript_ver}
 BuildRequires:	Qt5Sql-devel >= %{qtbase_ver}
-#TODO: BuildRequires:	Qt5WebkitWidgets-devel >= %{qtwebkit_ver}
+BuildRequires:	Qt5WebKit-devel >= %{qtwebkit_ver}
 BuildRequires:	Qt5Widgets-devel >= %{qtbase_ver}
 BuildRequires:	Qt5XmlPatterns-devel >= %{qtxmlpatterns_ver}
 %if %{with qch}
@@ -98,6 +99,19 @@ Qt5 Quick1 (Qt5Declarative) library - development files.
 
 %description -n Qt5Declarative-devel -l pl.UTF-8
 Biblioteka Qt5 Quick1 (Qt5Declarative) - pliki programistyczne.
+
+%package -n Qt5Declarative-webkit
+Summary:	WebKit plugin for Qt5 Quick1 library
+Summary(pl.UTF-8):	Wtyczka WebKit dla biblioteki Qt5 Quick1
+Group:		X11/Libraries
+Requires:	Qt5Declarative = %{version}-%{release}
+Requires:	Qt5WebKit >= %{qtwebkit_ver}
+
+%description -n Qt5Declarative-webkit
+WebKit plugin for Qt5 Quick1 library.
+
+%description -n Qt5Declarative-webkit -l pl.UTF-8
+Wtyczka WebKit dla biblioteki Qt5 Quick1.
 
 %package -n Qt5Designer-qdeclarativeview
 Summary:	QDeclarativeView (Quick1) plugin for Qt5 Designer
@@ -258,9 +272,19 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libQt5Declarative.prl
 %{_includedir}/qt5/QtDeclarative
 %{_pkgconfigdir}/Qt5Declarative.pc
-%{_libdir}/cmake/Qt5Declarative
+%dir %{_libdir}/cmake/Qt5Declarative
+%{_libdir}/cmake/Qt5Declarative/Qt5DeclarativeConfig*.cmake
+%{_libdir}/cmake/Qt5Declarative/Qt5Declarative_QTcpServerConnection.cmake
+%{_libdir}/cmake/Qt5Declarative/Qt5Declarative_QtQuick1Plugin.cmake
 %{qt5dir}/mkspecs/modules/qt_lib_declarative.pri
 %{qt5dir}/mkspecs/modules/qt_lib_declarative_private.pri
+
+%files -n Qt5Declarative-webkit
+%defattr(644,root,root,755)
+%dir %{qt5dir}/imports/QtWebKit
+%attr(755,root,root) %{qt5dir}/imports/QtWebKit/libqmlwebkitplugin.so
+%{qt5dir}/imports/QtWebKit/plugins.qmltypes
+%{qt5dir}/imports/QtWebKit/qmldir
 
 %files -n Qt5Designer-qdeclarativeview
 %defattr(644,root,root,755)
