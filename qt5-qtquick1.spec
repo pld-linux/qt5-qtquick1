@@ -13,14 +13,14 @@
 Summary:	The Qt5 Quick1 (Qt5Declarative) library
 Summary(pl.UTF-8):	Biblioteka Qt5 Quick1 (Qt5Declarative)
 Name:		qt5-%{orgname}
-Version:	5.3.0
+Version:	5.3.1
 Release:	1
 License:	LGPL v2 with Digia Qt LGPL Exception v1.1 or GPL v3
 Group:		X11/Libraries
 Source0:	http://download.qt-project.org/official_releases/qt/5.3/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
-# Source0-md5:	cd6ffd4a29f7050f71670e7afec09e5d
+# Source0-md5:	401ebe552dc76041e2485507ecbdfc80
 Source1:	http://download.qt-project.org/official_releases/qt/5.3/%{version}/submodules/qttranslations-opensource-src-%{version}.tar.xz
-# Source1-md5:	1f8d488b6ac26cdbec7f7f7364cd01d0
+# Source1-md5:	d43878fc7a5b9fdee03039770dbac1fa
 URL:		http://qt-project.org/
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Designer-devel >= %{qttools_ver}
