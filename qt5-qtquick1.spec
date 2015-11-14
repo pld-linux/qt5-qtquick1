@@ -13,15 +13,15 @@
 Summary:	The Qt5 Quick1 (Qt5Declarative) library
 Summary(pl.UTF-8):	Biblioteka Qt5 Quick1 (Qt5Declarative)
 Name:		qt5-%{orgname}
-Version:	5.4.2
+Version:	5.5.1
 Release:	1
 License:	LGPL v2 with Digia Qt LGPL Exception v1.1 or GPL v3
 Group:		X11/Libraries
-Source0:	http://download.qt-project.org/official_releases/qt/5.4/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
-# Source0-md5:	8275c3ca1f962905baf1f19310e1b6e4
-Source1:	http://download.qt-project.org/official_releases/qt/5.4/%{version}/submodules/qttranslations-opensource-src-%{version}.tar.xz
-# Source1-md5:	35151a736e3b720de4f5128386f9c834
-URL:		http://qt-project.org/
+Source0:	http://download.qt.io/official_releases/qt/5.5/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
+# Source0-md5:	46a61a405844cbe88a754127422f6b6d
+Source1:	http://download.qt.io/official_releases/qt/5.5/%{version}/submodules/qttranslations-opensource-src-%{version}.tar.xz
+# Source1-md5:	1f89d53fe759db123b4b6d9de9d9e8c9
+URL:		http://www.qt.io/
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Designer-devel >= %{qttools_ver}
 BuildRequires:	Qt5Gui-devel >= %{qtbase_ver}
@@ -29,6 +29,8 @@ BuildRequires:	Qt5Network-devel >= %{qtbase_ver}
 BuildRequires:	Qt5OpenGL-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Script-devel >= %{qtscript_ver}
 BuildRequires:	Qt5Sql-devel >= %{qtbase_ver}
+# uiplugin module
+BuildRequires:	Qt5UiTools-devel >= %{qttools_ver}
 BuildRequires:	Qt5WebKit-devel >= %{qtwebkit_ver}
 BuildRequires:	Qt5Widgets-devel >= %{qtbase_ver}
 BuildRequires:	Qt5XmlPatterns-devel >= %{qtxmlpatterns_ver}
@@ -208,7 +210,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -C qttranslations-opensource-src-%{version} install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 # keep only qmlviewer and qtquick1
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/qt5/translations/{assistant,designer,linguist,qt,qtbase,qtconfig,qtconnectivity,qtdeclarative,qtlocation,qtmultimedia,qtquickcontrols,qtscript,qtxmlpatterns}_*.qm
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/qt5/translations/{assistant,designer,linguist,qt,qtbase,qtconfig,qtconnectivity,qtdeclarative,qtlocation,qtmultimedia,qtquickcontrols,qtscript,qtwebsockets,qtxmlpatterns}_*.qm
 %endif
 
 # useless symlinks
