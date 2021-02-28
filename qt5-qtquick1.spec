@@ -140,9 +140,7 @@ Summary:	Qt5 Quick1 (Qt5Declarative) documentation in HTML format
 Summary(pl.UTF-8):	Dokumentacja do biblioteki Qt5 Quick1 (Qt5Declarative) w formacie HTML
 Group:		Documentation
 Requires:	qt5-doc-common >= %{qtbase_ver}
-%if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
-%endif
 
 %description doc
 Qt5 Quick1 (Qt5Declarative) documentation in HTML format.
@@ -156,9 +154,7 @@ Summary:	Qt5 Quick1 (Qt5Declarative) documentation in QCH format
 Summary(pl.UTF-8):	Dokumentacja do biblioteki Qt5 Quick1 (Qt5Declarative) w formacie QCH
 Group:		Documentation
 Requires:	qt5-doc-common >= %{qtbase_ver}
-%if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
-%endif
 
 %description doc-qch
 Qt5 Quick1 (Qt5Declarative) documentation in QCH format.
@@ -170,9 +166,7 @@ Dokumentacja do biblioteki Qt5 Quick1 (Qt5Declarative) w formacie QCH.
 Summary:	Qt5 Quick1 (Qt5Declarative) examples
 Summary(pl.UTF-8):	Przykłady do biblioteki Qt5 Quick1 (Qt5Declarative)
 Group:		X11/Development/Libraries
-%if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
-%endif
 
 %description examples
 Qt5 Quick1 (Qt5Declarative) examples.
